@@ -1,0 +1,3 @@
+/out/CMakeFiles/hello_pi.dir
+/out/CMakeFiles/edit_cache.dir
+/out/CMakeFiles/rebuild_cache.dir
