@@ -12,6 +12,7 @@ project(bt_chat_server CXX)
 
 set(CMAKE_CXX_STANDARD 17)
 
+add_executable(hello_pi src/00_hello_pi.cc)
 add_executable(bt_chat_server src/main.cpp)
 
 # BlueZ 블루투스 라이브러리 및 멀티스레드 라이브러리 링킹
