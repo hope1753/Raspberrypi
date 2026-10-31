@@ -1,0 +1,1 @@
+/usr/bin/aarch64-linux-gnu-g++ -O3 -DNDEBUG CMakeFiles/bt_chat_server.dir/src/main.cpp.o -o bt_chat_server  -lbluetooth -lpthread 

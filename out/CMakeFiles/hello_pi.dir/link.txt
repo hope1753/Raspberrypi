@@ -1,0 +1,1 @@
+/usr/bin/aarch64-linux-gnu-g++ -O3 -DNDEBUG CMakeFiles/hello_pi.dir/src/00_hello_pi.cc.o -o hello_pi 

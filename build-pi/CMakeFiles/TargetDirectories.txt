@@ -1,0 +1,4 @@
+/src/build-pi/CMakeFiles/hello_pi.dir
+/src/build-pi/CMakeFiles/bt_chat_server.dir
+/src/build-pi/CMakeFiles/edit_cache.dir
+/src/build-pi/CMakeFiles/rebuild_cache.dir

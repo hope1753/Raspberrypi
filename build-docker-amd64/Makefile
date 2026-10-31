@@ -129,6 +129,19 @@ hello_pi/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/hello_pi.dir/build.make CMakeFiles/hello_pi.dir/build
 .PHONY : hello_pi/fast
 
+#=============================================================================
+# Target rules for targets named bt_chat_server
+
+# Build rule for target.
+bt_chat_server: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 bt_chat_server
+.PHONY : bt_chat_server
+
+# fast build rule for target.
+bt_chat_server/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/bt_chat_server.dir/build.make CMakeFiles/bt_chat_server.dir/build
+.PHONY : bt_chat_server/fast
+
 src/00_hello_pi.o: src/00_hello_pi.cc.o
 .PHONY : src/00_hello_pi.o
 
@@ -153,6 +166,30 @@ src/00_hello_pi.cc.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/hello_pi.dir/build.make CMakeFiles/hello_pi.dir/src/00_hello_pi.cc.s
 .PHONY : src/00_hello_pi.cc.s
 
+src/main.o: src/main.cpp.o
+.PHONY : src/main.o
+
+# target to build an object file
+src/main.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/bt_chat_server.dir/build.make CMakeFiles/bt_chat_server.dir/src/main.cpp.o
+.PHONY : src/main.cpp.o
+
+src/main.i: src/main.cpp.i
+.PHONY : src/main.i
+
+# target to preprocess a source file
+src/main.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/bt_chat_server.dir/build.make CMakeFiles/bt_chat_server.dir/src/main.cpp.i
+.PHONY : src/main.cpp.i
+
+src/main.s: src/main.cpp.s
+.PHONY : src/main.s
+
+# target to generate assembly for a file
+src/main.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/bt_chat_server.dir/build.make CMakeFiles/bt_chat_server.dir/src/main.cpp.s
+.PHONY : src/main.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -161,10 +198,14 @@ help:
 	@echo "... depend"
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
+	@echo "... bt_chat_server"
 	@echo "... hello_pi"
 	@echo "... src/00_hello_pi.o"
 	@echo "... src/00_hello_pi.i"
 	@echo "... src/00_hello_pi.s"
+	@echo "... src/main.o"
+	@echo "... src/main.i"
+	@echo "... src/main.s"
 .PHONY : help
 
 

@@ -64,6 +64,7 @@ CMAKE_BINARY_DIR = /out
 
 # The main recursive "all" target.
 all: CMakeFiles/hello_pi.dir/all
+all: CMakeFiles/bt_chat_server.dir/all
 .PHONY : all
 
 # The main recursive "preinstall" target.
@@ -72,6 +73,7 @@ preinstall:
 
 # The main recursive "clean" target.
 clean: CMakeFiles/hello_pi.dir/clean
+clean: CMakeFiles/bt_chat_server.dir/clean
 .PHONY : clean
 
 #=============================================================================
@@ -81,7 +83,7 @@ clean: CMakeFiles/hello_pi.dir/clean
 CMakeFiles/hello_pi.dir/all:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/hello_pi.dir/build.make CMakeFiles/hello_pi.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/hello_pi.dir/build.make CMakeFiles/hello_pi.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/out/CMakeFiles --progress-num=1,2 "Built target hello_pi"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/out/CMakeFiles --progress-num=3,4 "Built target hello_pi"
 .PHONY : CMakeFiles/hello_pi.dir/all
 
 # Build rule for subdir invocation for target.
@@ -99,6 +101,32 @@ hello_pi: CMakeFiles/hello_pi.dir/rule
 CMakeFiles/hello_pi.dir/clean:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/hello_pi.dir/build.make CMakeFiles/hello_pi.dir/clean
 .PHONY : CMakeFiles/hello_pi.dir/clean
+
+#=============================================================================
+# Target rules for target CMakeFiles/bt_chat_server.dir
+
+# All Build rule for target.
+CMakeFiles/bt_chat_server.dir/all:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/bt_chat_server.dir/build.make CMakeFiles/bt_chat_server.dir/depend
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/bt_chat_server.dir/build.make CMakeFiles/bt_chat_server.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/out/CMakeFiles --progress-num=1,2 "Built target bt_chat_server"
+.PHONY : CMakeFiles/bt_chat_server.dir/all
+
+# Build rule for subdir invocation for target.
+CMakeFiles/bt_chat_server.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /out/CMakeFiles 2
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/bt_chat_server.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /out/CMakeFiles 0
+.PHONY : CMakeFiles/bt_chat_server.dir/rule
+
+# Convenience name for target.
+bt_chat_server: CMakeFiles/bt_chat_server.dir/rule
+.PHONY : bt_chat_server
+
+# clean rule for target.
+CMakeFiles/bt_chat_server.dir/clean:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/bt_chat_server.dir/build.make CMakeFiles/bt_chat_server.dir/clean
+.PHONY : CMakeFiles/bt_chat_server.dir/clean
 
 #=============================================================================
 # Special targets to cleanup operation of make.
