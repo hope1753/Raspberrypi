@@ -1,0 +1,4 @@
+/out/CMakeFiles/hello_pi.dir
+/out/CMakeFiles/bt_chat_server.dir
+/out/CMakeFiles/edit_cache.dir
+/out/CMakeFiles/rebuild_cache.dir

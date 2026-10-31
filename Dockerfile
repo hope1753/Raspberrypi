@@ -26,11 +26,26 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     ninja-build \
     pkg-config \
     libbluetooth-dev:arm64 \
+    curl \
+    ca-certificates \
+    xz-utils \
     && rm -rf /var/lib/apt/lists/*
+
+# 4. libgpiod v2 (arm64) 소스 빌드
+# Ubuntu 24.04 패키지는 v1(1.6.3)이라 v2 API를 쓰는 src/common/gpio.hpp를 컴파일할 수 없음.
+# 정적 라이브러리로 링크하므로 Pi에 설치된 libgpiod 버전과 무관하게 실행됨.
+ARG LIBGPIOD_VERSION=2.2.1
+RUN curl -fsSL https://mirrors.edge.kernel.org/pub/software/libs/libgpiod/libgpiod-${LIBGPIOD_VERSION}.tar.xz | tar -xJ -C /tmp && \
+    cd /tmp/libgpiod-${LIBGPIOD_VERSION} && \
+    ./configure --host=aarch64-linux-gnu --prefix=/usr/aarch64-linux-gnu \
+        --enable-static --disable-shared \
+        ac_cv_func_malloc_0_nonnull=yes ac_cv_func_realloc_0_nonnull=yes && \
+    make -j"$(nproc)" install && \
+    rm -rf /tmp/libgpiod-${LIBGPIOD_VERSION}
 
 WORKDIR /src
 
-# 4. 크로스 컴파일 실행 명령어
+# 5. 크로스 컴파일 실행 명령어
 CMD cmake -S /src -B /out \
     -DCMAKE_TOOLCHAIN_FILE=/src/cmake/toolchains/aarch64-linux-gnu.cmake \
     -DCMAKE_BUILD_TYPE=Release && \
