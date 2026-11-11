@@ -40,7 +40,7 @@ namespace {
     // 한 주기를 100칸으로 나누고, 한 칸을 100마이크로초로 잡았다.
     // 그러면 한 주기는 100 x 100us = 10ms이고, 1초에 약 100번 반복된다(100Hz).
     // 실제로는 GPIO 호출과 운영체제 스케줄링 때문에 이보다 조금 더 느리다.
-    constexpr int kPwmSteps = 100;
+    constexpr int kPwmSteps = 1000;
     constexpr int kStepUs = 100;
 
     // 10칸마다(약 1ms마다) 한 번씩 버튼을 확인한다.

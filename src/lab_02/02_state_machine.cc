@@ -38,9 +38,10 @@
 #include "../common/signal_stop.hpp"  // Ctrl+C를 눌렀을 때 안전하게 끝내는 기능
 
 namespace {
-    constexpr unsigned int kRedPin = 17;     // 빨강 LED (BCM 17)
+    constexpr unsigned int kYellowPin = 17;     // 노랑 LED (BCM 17)
     constexpr unsigned int kGreenPin = 27;   // 초록 LED (BCM 27)
     constexpr unsigned int kButtonPin = 23;  // 보행자 버튼 (BCM 23)
+    constexpr unsigned int kRedPin = 22;  // 빨강 LED (BCM 22)
 
     constexpr int kPollIntervalUs = 1000;  // 1밀리초마다 한 번씩 확인한다.
     constexpr long kSettleMs = 50;         // 디바운스 시간 (2-A와 같은 규칙)
@@ -76,16 +77,19 @@ namespace {
     bool GreenOn(int state, bool blink) {
         return state == kCarGo || (state == kWarn && blink);
     }
+
+    bool YellowOn(int state) { return state == kWarn }
 }  // namespace
 
 int main() {
     // 핀을 사용하겠다고 요청한다. LED는 모두 꺼진 상태로 시작한다.
-    Gpio red(kRedPin, Gpio::kOutputLow);
+    Gpio yellow(kYellowPin, Gpio::kOutputLow);
     Gpio green(kGreenPin, Gpio::kOutputLow);
+    Gpio red(kRedPin, Gpio::kOutputLow);
     Gpio button(kButtonPin, Gpio::kInputPullUp);
 
     if (!InstallStopHandler() || !red.ok() || !green.ok() || !button.ok()) {
-        std::fprintf(stderr, "cannot claim GPIO%u/%u/%u\n", kRedPin, kGreenPin, kButtonPin);
+        std::fprintf(stderr, "cannot claim GPIO%u/%u/%u\n", kYellowPin, kGreenPin, kButtonPin);
         return 1;
     }
 
@@ -151,5 +155,6 @@ int main() {
     // 끝내기 전에 LED를 모두 끈다.
     red.Set(0);
     green.Set(0);
+    yello.Set(0);
     return 0;
 }

@@ -1,0 +1,7 @@
+# 실행하면서 생기는 데이터 (사람이 찍힌 사진은 저장소에 올리지 않는다)
+events.db*
+snapshots/
+models/*.caffemodel
+models/*.prototxt
+__pycache__/
+.venv/
