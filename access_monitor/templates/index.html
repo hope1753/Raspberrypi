@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>출입 감지 대시보드</title>
+  <style>
+    body { font-family: sans-serif; margin: 0 auto; padding: 16px; max-width: 960px; background: #f5f6f8; color: #222; }
+    h1 { font-size: 1.4rem; }
+    h2 { font-size: 1.05rem; margin-top: 0; }
+    .card { background: #fff; border-radius: 8px; padding: 16px; margin-bottom: 16px; box-shadow: 0 1px 3px rgba(0,0,0,.12); }
+    .today { font-size: 2.4rem; font-weight: bold; }
+    .charts { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; }
+    .event { display: flex; gap: 12px; align-items: center; padding: 8px 0; border-top: 1px solid #eee; }
+    .event img { width: 96px; height: 72px; object-fit: cover; border-radius: 4px; background: #ddd; }
+    .muted { color: #777; font-size: .9rem; }
+  </style>
+</head>
+<body>
+  <h1>출입 감지 대시보드</h1>
+
+  <div class="card">
+    <h2>오늘 감지</h2>
+    <div class="today"><span id="today">-</span>건</div>
+    <div class="muted" id="updated"></div>
+  </div>
+
+  <div class="charts">
+    <div class="card"><h2>오늘 시간대별</h2><canvas id="hourly"></canvas></div>
+    <div class="card"><h2>최근 7일</h2><canvas id="daily"></canvas></div>
+  </div>
+
+  <div class="card">
+    <h2>이벤트 타임라인</h2>
+    <div id="events"></div>
+  </div>
+
+  <!-- Chart.js는 인터넷에서 받아 온다. 인터넷이 없으면 그래프만 안 나오고 나머지는 동작한다. -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+  <script>
+    const ZONE_NAMES = { left: "왼쪽", center: "가운데", right: "오른쪽" };
+    let hourlyChart = null;
+    let dailyChart = null;
+
+    function barChart(canvasId, labels, values) {
+      return new Chart(document.getElementById(canvasId), {
+        type: "bar",
+        data: { labels: labels, datasets: [{ label: "감지 수", data: values, backgroundColor: "#3b82f6" }] },
+        options: { plugins: { legend: { display: false } }, scales: { y: { beginAtZero: true, ticks: { precision: 0 } } } },
+      });
+    }
+
+    function updateCharts(data) {
+      if (!window.Chart) return;
+      const hours = data.hourly.map((_, hour) => hour + "시");
+      const days = data.daily.map(day => day.date.slice(5));
+      const dayCounts = data.daily.map(day => day.count);
+      if (!hourlyChart) {
+        hourlyChart = barChart("hourly", hours, data.hourly);
+        dailyChart = barChart("daily", days, dayCounts);
+        return;
+      }
+      hourlyChart.data.datasets[0].data = data.hourly;
+      dailyChart.data.labels = days;
+      dailyChart.data.datasets[0].data = dayCounts;
+      hourlyChart.update();
+      dailyChart.update();
+    }
+
+    function eventRow(event) {
+      const row = document.createElement("div");
+      row.className = "event";
+      if (event.snapshot) {
+        const link = document.createElement("a");
+        const image = document.createElement("img");
+        link.href = image.src = "/snapshots/" + encodeURIComponent(event.snapshot);
+        image.alt = "스냅샷";
+        image.loading = "lazy";
+        link.appendChild(image);
+        row.appendChild(link);
+      }
+      const text = document.createElement("div");
+      const time = document.createElement("div");
+      time.textContent = event.timestamp.replace("T", " ");
+      const place = document.createElement("div");
+      place.className = "muted";
+      place.textContent = "위치: " + (ZONE_NAMES[event.zone] || event.zone);
+      text.append(time, place);
+      row.appendChild(text);
+      return row;
+    }
+
+    async function refresh() {
+      try {
+        const response = await fetch("/api/summary");
+        if (!response.ok) throw new Error(response.status);
+        const data = await response.json();
+        document.getElementById("today").textContent = data.today;
+        document.getElementById("updated").textContent = "마지막 갱신: " + new Date().toLocaleTimeString();
+        updateCharts(data);
+        const list = document.getElementById("events");
+        list.replaceChildren(...data.events.map(eventRow));
+        if (data.events.length === 0) list.textContent = "아직 기록된 이벤트가 없습니다.";
+      } catch (error) {
+        document.getElementById("updated").textContent = "서버에 연결할 수 없습니다.";
+      }
+    }
+
+    refresh();
+    setInterval(refresh, 5000);  // 5초마다 새 데이터를 가져온다.
+  </script>
+</body>
+</html>
