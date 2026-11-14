@@ -119,17 +119,35 @@ private:
 // 브라우저에 보낼 대시보드 화면. 1초마다 /api에서 값을 받아 표를 다시 그린다.
 // 실패한 센서는 0 대신 "--"로 빨갛게 표시한다. 맨 아래에 수집 시각(과제 2)을 보여 준다.
 const char* const kDashboard =
-    "<!doctype html><meta charset=utf-8><title>MEP Sensor Hub</title>"
-    "<style>body{font-family:sans-serif;margin:2rem}"
-    "td{padding:.4rem 1rem;border-bottom:1px solid #ddd}"
-    ".bad{color:#c0392b}#ts{color:#777;margin-top:1rem}</style>"
-    "<h1>Sensor Hub</h1><table id=t></table><div id=ts></div>"
-    "<script>setInterval(async()=>{"
-    "const r=await(await fetch('/api')).json();"
-    "document.getElementById('t').innerHTML=r.sensors.map(s=>"
-    "`<tr><td>${s.name}</td><td class=${s.ok?'':'bad'}>"
-    "${s.ok?s.value.toFixed(2)+' '+s.unit:'--'}</td></tr>`).join('');"
-    "document.getElementById('ts').textContent='collected at '+r.timestamp;"
-    "},1000)</script>";
+    "<!doctype html>
+        <meta charset=utf-8>
+            <title>MEP Sensor Hub</title>"
+    "       <style>
+                body {
+                    font-family:sans-serif; 
+                    margin:2rem
+                }"
+                "td {
+                    padding:.4rem 1rem;
+                    border-bottom:1px solid #ddd
+                }"
+                ".bad {
+                    color:#c0392b
+                }
+                #ts {
+                    color:#777;
+                    margin-top:1rem
+                }
+            </style>"
+    "<h1>Sensor Hub</h1>
+        <table id=t>
+        </table>
+        <div id=ts>
+        </div>"
+    "   <script>
+        setInterval(async()=>{"
+    "       const r=await(await fetch('/api')).json();"
+    "       document.getElementById('t').innerHTML=r.sensors.map(s=>`<tr><td>${s.name}</td><td class=${s.ok?'':'bad'}>${s.ok?s.value.toFixed(2)+' '+s.unit:'--'}</td></tr>`).join('');document.getElementById('ts').textContent='collected at '+r.timestamp;},1000)
+    </script>";
 
 #endif  // MEP_LAB04_HTTP_HPP_

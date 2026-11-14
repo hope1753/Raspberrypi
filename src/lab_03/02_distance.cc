@@ -34,6 +34,7 @@
 
 #include "../common/gpio.hpp"         // 부저에 쓰는 Gpio 클래스
 #include "../common/signal_stop.hpp"  // Ctrl+C를 눌렀을 때 안전하게 끝내는 기능
+#include "distance_stats.hpp"         // 03_distance_alert.cc와 같은 기준의 통계, CPU 점유율
 
 namespace {
     constexpr int kChipDevice = 0;           // GPIO 칩 번호 (/dev/gpiochip0)
@@ -45,7 +46,6 @@ namespace {
     constexpr long kStartTimeoutUs = 60000;   // ECHO가 HIGH가 되기를 기다리는 최대 시간
     constexpr long kEchoTimeoutUs = 30000;    // ECHO가 LOW가 되기를 기다리는 최대 시간
     constexpr float kSpeedCmPerUs = 0.0343f;  // 20도 공기 중 음속 (cm/마이크로초)
-    constexpr int kIntervalUs = 500000;       // 측정 간격: 0.5초
 }  // namespace
 
 // 핀이 원하는 값(level)이 될 때까지 기다리고, 걸린 시간(마이크로초)을 돌려준다.
@@ -62,19 +62,37 @@ long WaitFor(int handle, int gpio, int level, long timeout_us) {
     }
 }
 
-// 초음파를 한 번 쏘고 ECHO가 HIGH인 시간을 마이크로초로 돌려준다. 실패하면 -1.
+// 측정에 실패했을 때 돌려주는 값. 어느 단계에서 실패했는지 구별해서 원인을 찾기 쉽게 한다.
+constexpr long kEchoBusy = -1;      // 측정 전부터 ECHO가 HIGH로 붙어 있음
+constexpr long kTrigFailed = -2;    // TRIG 핀에 펄스를 보내지 못함
+constexpr long kNoEchoStart = -3;   // 60ms를 기다려도 ECHO가 HIGH가 되지 않음
+constexpr long kEchoTooLong = -4;   // ECHO가 30ms 넘게 HIGH로 남아 있음 (반사파가 안 돌아옴)
+
+// 실패 값을 사람이 읽을 수 있는 설명으로 바꾼다.
+const char* DescribeFailure(long code) {
+    switch (code) {
+        case kEchoBusy:    return "ECHO is already HIGH before triggering -- check the divider and that nothing else drives GPIO24";
+        case kTrigFailed:  return "cannot drive TRIG -- check GPIO23";
+        case kNoEchoStart: return "ECHO never went HIGH -- check the 5V feed, TRIG wiring and the divider direction";
+        case kEchoTooLong: return "ECHO stayed HIGH too long -- nothing within about 5 m, or the target absorbs sound";
+        default:           return "unknown";
+    }
+}
+
+// 초음파를 한 번 쏘고 ECHO가 HIGH인 시간을 마이크로초로 돌려준다. 실패하면 위의 음수 값.
 long MeasureEchoUs(int handle) {
     // 측정 전에는 ECHO가 LOW여야 한다. 이전 측정이 아직 끝나지 않았다면 포기한다.
-    if (lgGpioRead(handle, kEchoPin) != 0) return -1;
+    if (lgGpioRead(handle, kEchoPin) != 0) return kEchoBusy;
 
     // TRIG를 10마이크로초 동안 HIGH로 만든다. 센서가 받아들이는 최소 길이다.
-    if (lgGpioWrite(handle, kTrigPin, 1) != LG_OKAY) return -1;
+    if (lgGpioWrite(handle, kTrigPin, 1) != LG_OKAY) return kTrigFailed;
     lguSleep(0.00001);
-    if (lgGpioWrite(handle, kTrigPin, 0) != LG_OKAY) return -1;
+    if (lgGpioWrite(handle, kTrigPin, 0) != LG_OKAY) return kTrigFailed;
 
     // ECHO가 HIGH가 될 때까지 기다린 뒤, 다시 LOW가 될 때까지의 시간을 잰다.
-    if (WaitFor(handle, kEchoPin, 1, kStartTimeoutUs) < 0) return -1;
-    return WaitFor(handle, kEchoPin, 0, kEchoTimeoutUs);
+    if (WaitFor(handle, kEchoPin, 1, kStartTimeoutUs) < 0) return kNoEchoStart;
+    const long echo_us = WaitFor(handle, kEchoPin, 0, kEchoTimeoutUs);
+    return echo_us < 0 ? kEchoTooLong : echo_us;
 }
 
 // ECHO 시간을 거리(cm)로 바꾼다. 왕복 시간이므로 2로 나눠 편도 거리를 구한다.
@@ -82,7 +100,13 @@ float ToCm(long echo_us) {
     return (static_cast<float>(echo_us) * kSpeedCmPerUs) / 2.0f;
 }
 
-int main() {
+// [실행]
+//   ./distance          0.5초마다 측정
+//   ./distance 0 -q     쉬지 않고 연속 측정, 매번 출력하지 않음 (03_distance_alert.cc와 CPU 비교용)
+//   Ctrl+C로 끝내면 평균, 표준편차, CPU 점유율을 출력한다.
+int main(int argc, char* argv[]) {
+    const RunOptions options = ParseOptions(argc, argv);
+
     // GPIO 칩을 열고 부저 핀을 준비한다. 부저는 꺼진 상태로 시작한다.
     const int handle = lgGpiochipOpen(kChipDevice);
     Gpio buzzer(kBuzzerPin, Gpio::kOutputLow);
@@ -95,8 +119,10 @@ int main() {
         return 1;
     }
 
-    std::printf("TRIG=GPIO%d ECHO=GPIO%d buzzer=GPIO%u. Ctrl-C to stop\n", kTrigPin, kEchoPin, kBuzzerPin);
+    std::printf("[busy-wait] TRIG=GPIO%d ECHO=GPIO%d buzzer=GPIO%u interval=%ld ms. Ctrl-C to stop\n",
+                kTrigPin, kEchoPin, kBuzzerPin, options.interval_us / 1000);
 
+    DistanceStats stats;
     while (!StopRequested()) {
         const long echo_us = MeasureEchoUs(handle);
 
@@ -106,14 +132,21 @@ int main() {
         if (!buzzer.Set(warn ? 1 : 0)) break;
 
         if (echo_us < 0) {
-            std::printf("no echo -- check TRIG, the 5V feed and the divider\n");
+            stats.AddFailure();
+            if (!options.quiet) std::printf("no echo: %s\n", DescribeFailure(echo_us));
         } else {
-            std::printf("echo=%5ld us -> %6.1f cm %s\n", echo_us, ToCm(echo_us), warn ? "[WARN]" : "");
+            stats.AddSuccess(ToCm(echo_us));
+            if (!options.quiet) {
+                std::printf("echo=%5ld us -> %6.1f cm %s\n", echo_us, ToCm(echo_us), warn ? "[WARN]" : "");
+            }
         }
         std::fflush(stdout);
 
-        usleep(kIntervalUs);
+        // 센서는 직전 측정의 반사파가 사라질 때까지 잠깐 쉬어야 해서, 연속 측정이어도 1ms는 쉰다.
+        usleep(options.interval_us > 0 ? options.interval_us : 1000);
     }
+
+    stats.Print("busy-wait");
 
     // 끝내기 전에 부저를 끄고, 사용한 핀과 칩을 돌려준다.
     buzzer.Set(0);

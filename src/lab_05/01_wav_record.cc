@@ -92,6 +92,22 @@ bool WriteHeader(std::FILE* file, unsigned int rate, std::uint32_t data_bytes) {
            WriteU32(file, data_bytes);
 }
 
+// 녹음을 언제 시작할지 정한다.
+// snd_pcm_set_params()는 "버퍼가 가득 찰 만큼(1600프레임) 요청받으면 시작"하도록 정한다.
+// 그런데 이 프로그램은 한 번에 1024프레임만 요청하기 때문에, 녹음이 시작되지 않은 채로
+// 기다리다가 바로 Input/output error가 난다. (Pi + C270에서 실제로 확인한 문제)
+// arecord처럼 시작 기준(start_threshold)을 1로 바꿔서, 첫 읽기에서 바로 녹음이 시작되게 한다.
+int StartOnFirstRead(snd_pcm_t* pcm) {
+    snd_pcm_sw_params_t* sw = nullptr;
+    int rc = snd_pcm_sw_params_malloc(&sw);
+    if (rc < 0) return rc;
+    rc = snd_pcm_sw_params_current(pcm, sw);  // 지금 설정을 가져와서
+    if (rc >= 0) rc = snd_pcm_sw_params_set_start_threshold(pcm, sw, 1);  // 시작 기준만 1로 바꾸고
+    if (rc >= 0) rc = snd_pcm_sw_params(pcm, sw);  // 다시 적용한다.
+    snd_pcm_sw_params_free(sw);
+    return rc;
+}
+
 int main(int argc, char* argv[]) {
     const char* device = argc > 1 ? argv[1] : kDevice;
 
@@ -109,6 +125,7 @@ int main(int argc, char* argv[]) {
         rc = snd_pcm_set_params(pcm, SND_PCM_FORMAT_S16_LE, SND_PCM_ACCESS_RW_INTERLEAVED,
                                 kChannels, rate, 1, kLatencyUs);
     }
+    if (rc >= 0) rc = StartOnFirstRead(pcm);  // 첫 읽기에서 바로 녹음이 시작되게 한다.
 
     // 2) 파일을 만들고, 크기를 0으로 둔 임시 헤더를 먼저 쓴다.
     //    헤더를 쓰고 나면 파일의 쓰기 위치가 44바이트 뒤가 되어, 표본이 바로 이어진다.

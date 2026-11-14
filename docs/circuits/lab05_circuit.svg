@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="560" viewBox="0 0 1000 560" font-family="'Malgun Gothic','Noto Sans KR',sans-serif">
+<rect width="1000" height="560" fill="#ffffff"/>
+<text x="30" y="40" font-size="22" font-weight="700" fill="#1f2937">실습 5 회로 구성 - 오디오 시각화와 녹음</text>
+<text x="30" y="66" font-size="13" fill="#6b7280" text-anchor="start" font-weight="400">GPIO 배선이 없다. 웹캠에 들어 있는 마이크를 USB로 연결하고, 리눅스 ALSA로 소리를 읽는다.</text>
+<rect x="30" y="85" width="940" height="270" rx="10" fill="#f8fafc" stroke="#cbd5e1"/>
+<text x="46" y="113" font-size="16" fill="#1f2937" text-anchor="start" font-weight="700">녹음 경로 (visualizer, wavrec)</text>
+<rect x="70" y="140" width="220" height="160" rx="10" fill="#ffffff" stroke="#1f2937" stroke-width="2"/>
+<text x="180.0" y="170" font-size="16" fill="#1f2937" text-anchor="middle" font-weight="700">로지텍 C270</text>
+<text x="180.0" y="196" font-size="13" fill="#6b7280" text-anchor="middle" font-weight="400">USB 웹캠</text>
+<text x="180.0" y="216" font-size="13" fill="#6b7280" text-anchor="middle" font-weight="400">내장 마이크 (모노)</text>
+<text x="180.0" y="236" font-size="13" fill="#6b7280" text-anchor="middle" font-weight="400">카메라는 이 실습에서</text>
+<text x="180.0" y="256" font-size="13" fill="#6b7280" text-anchor="middle" font-weight="400">사용하지 않음</text>
+<rect x="390" y="140" width="220" height="160" rx="10" fill="#ffffff" stroke="#1f2937" stroke-width="2"/>
+<text x="500.0" y="170" font-size="16" fill="#1f2937" text-anchor="middle" font-weight="700">라즈베리파이 4</text>
+<text x="500.0" y="196" font-size="13" fill="#6b7280" text-anchor="middle" font-weight="400">USB 2.0 포트 (검은색)</text>
+<text x="500.0" y="216" font-size="13" fill="#6b7280" text-anchor="middle" font-weight="400">ALSA 드라이버</text>
+<text x="500.0" y="236" font-size="13" fill="#6b7280" text-anchor="middle" font-weight="400">snd-usb-audio</text>
+<rect x="710" y="140" width="220" height="160" rx="10" fill="#ffffff" stroke="#1f2937" stroke-width="2"/>
+<text x="820.0" y="170" font-size="16" fill="#1f2937" text-anchor="middle" font-weight="700">실습 프로그램</text>
+<text x="820.0" y="196" font-size="13" fill="#6b7280" text-anchor="middle" font-weight="400">plughw:3,0</text>
+<text x="820.0" y="216" font-size="13" fill="#6b7280" text-anchor="middle" font-weight="400">16kHz · 16비트 · 모노</text>
+<text x="820.0" y="236" font-size="13" fill="#6b7280" text-anchor="middle" font-weight="400">visualizer → dBFS 막대</text>
+<text x="820.0" y="256" font-size="13" fill="#6b7280" text-anchor="middle" font-weight="400">wavrec → record.wav</text>
+<path d="M290 220 L390 220" fill="none" stroke="#2563eb" stroke-width="2" stroke-linejoin="round"/>
+<text x="340" y="210" font-size="13" fill="#2563eb" text-anchor="middle" font-weight="700">USB</text>
+<path d="M610 220 L710 220" fill="none" stroke="#2563eb" stroke-width="2" stroke-linejoin="round"/>
+<text x="660" y="210" font-size="13" fill="#2563eb" text-anchor="middle" font-weight="700">ALSA</text>
+<text x="50" y="334" font-size="12" fill="#6b7280" text-anchor="start" font-weight="400">장치 번호(카드 3, 장치 0)는 arecord -l로 확인한다. USB를 다시 꽂으면 바뀔 수 있다.</text>
+<rect x="30" y="375" width="940" height="160" rx="10" fill="#f8fafc" stroke="#cbd5e1"/>
+<text x="46" y="403" font-size="16" fill="#1f2937" text-anchor="start" font-weight="700">재생 경로 (aplay, 둘 중 하나)</text>
+<rect x="70" y="420" width="400" height="90" rx="10" fill="#f8fafc" stroke="#1f2937" stroke-width="2"/>
+<text x="270.0" y="450" font-size="16" fill="#1f2937" text-anchor="middle" font-weight="700">Pi 3.5mm 이어폰 단자 → 스피커</text>
+<text x="270.0" y="476" font-size="13" fill="#6b7280" text-anchor="middle" font-weight="400">aplay -D plughw:0,0 record.wav</text>
+<rect x="530" y="420" width="400" height="90" rx="10" fill="#f8fafc" stroke="#1f2937" stroke-width="2"/>
+<text x="730.0" y="450" font-size="16" fill="#1f2937" text-anchor="middle" font-weight="700">노트북으로 복사해서 재생</text>
+<text x="730.0" y="476" font-size="13" fill="#6b7280" text-anchor="middle" font-weight="400">scp로 가져온 뒤 Windows에서 재생</text>
+</svg>

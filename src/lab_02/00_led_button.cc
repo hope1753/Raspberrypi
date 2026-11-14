@@ -36,12 +36,12 @@ namespace {
 
     // 버튼을 확인하는 간격이다. 1000마이크로초 = 1밀리초 = 0.001초.
     // 사람이 버튼을 누르는 시간보다 훨씬 짧아서 놓칠 일이 없다.
-    constexpr int kPollIntervalUs = 0;
+    constexpr int kPollIntervalUs = 1000;
 
     // 버튼에서 손을 뗀 뒤, 이 시간(50밀리초) 동안 계속 HIGH여야
     // "다음 누름을 받을 준비가 됐다"고 판단한다.
     // 과제 1: 이 값을 0으로 바꾸면 한 번 눌러도 여러 번 토글되는 것을 볼 수 있다.
-    constexpr long kSettleMs = 0;
+    constexpr long kSettleMs = 50;
 
     // 현재 시각을 밀리초(1/1000초) 단위로 돌려준다.
     // CLOCK_MONOTONIC은 항상 앞으로만 가는 시계라서 시간 간격을 재기에 알맞다.
