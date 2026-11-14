@@ -38,7 +38,7 @@
 namespace {
     constexpr unsigned int kDataPin = 4;  // 데이터 선이 연결된 핀 (BCM 4)
     constexpr long kTimeoutUs = 200;      // 이 시간 안에 신호가 안 바뀌면 포기한다.
-    constexpr long kBitThresholdUs = 50;  // HIGH가 이보다 길면 1, 짧으면 0 (과제 2에서 변경)
+    constexpr long kBitThresholdUs = 70;  // HIGH가 이보다 길면 1, 짧으면 0 (과제 2에서 변경)
     constexpr int kBitCount = 40;         // 받을 비트 수 (5바이트 x 8비트)
     constexpr int kStartLowUs = 20000;    // 시작 신호 길이: 20ms
     constexpr int kIntervalUs = 2000000;  // 측정 간격: 2초 (센서가 이보다 빨리 읽을 수 없다.)
@@ -68,29 +68,41 @@ long WaitFor(const Gpio& line, int level, long timeout_us) {
     }
 }
 
-// 센서를 한 번 읽는다. 성공하면 true를 돌려주고 습도와 온도를 채워 준다.
-bool ReadOnce(Gpio* line, int* humidity, int* temperature) {
+// 한 번 읽은 결과. 실패도 이유별로 구별해서 따로 셀 수 있게 한다.
+enum ReadResult {
+    kReadOk,        // 성공
+    kPinError,      // 핀을 출력/입력으로 바꾸지 못함 (다른 프로그램이 GPIO4를 쓰는 중 등)
+    kNoResponse,    // 센서가 응답 신호(LOW -> HIGH -> LOW)를 보내지 않음 (배선, 전원 문제)
+    kBitTimeout,    // 40비트를 받는 도중 신호가 끊김 (타이밍을 놓침)
+    kChecksumFail,  // 40비트는 다 받았지만 체크섬이 맞지 않음 (0과 1 판정이 틀림)
+    kResultCount
+};
+const char* const kResultNames[kResultCount] = {
+    "ok", "pin error", "no response", "bit timeout", "checksum fail"};
+
+// 센서를 한 번 읽는다. 성공하면 kReadOk를 돌려주고 습도와 온도를 채워 준다.
+ReadResult ReadOnce(Gpio* line, int* humidity, int* temperature) {
     // 1) 시작 신호: 핀을 출력으로 바꿔 20ms 동안 LOW로 만든다.
-    if (!line->Reconfigure(Gpio::kOutputLow)) return false;
+    if (!line->Reconfigure(Gpio::kOutputLow)) return kPinError;
     usleep(kStartLowUs);
 
     // 핀을 입력으로 바꾼다. 이제부터는 선을 놓고 센서의 말을 듣는다.
-    if (!line->Reconfigure(Gpio::kInput)) return false;
+    if (!line->Reconfigure(Gpio::kInput)) return kPinError;
 
     // 2) 응답 신호: LOW -> HIGH -> LOW 순서로 바뀌는지 차례로 확인한다.
-    if (WaitFor(*line, 0, kTimeoutUs) < 0) return false;
-    if (WaitFor(*line, 1, kTimeoutUs) < 0) return false;
-    if (WaitFor(*line, 0, kTimeoutUs) < 0) return false;
+    if (WaitFor(*line, 0, kTimeoutUs) < 0) return kNoResponse;
+    if (WaitFor(*line, 1, kTimeoutUs) < 0) return kNoResponse;
+    if (WaitFor(*line, 0, kTimeoutUs) < 0) return kNoResponse;
 
     // 3) 데이터: 40비트를 하나씩 받는다.
     std::uint8_t data[5] = {0, 0, 0, 0, 0};
     for (int i = 0; i < kBitCount; ++i) {
         // HIGH가 시작될 때까지 기다린다.
-        if (WaitFor(*line, 1, kTimeoutUs) < 0) return false;
+        if (WaitFor(*line, 1, kTimeoutUs) < 0) return kBitTimeout;
 
         // HIGH가 끝날 때까지 걸린 시간이 곧 비트의 값이다.
         const long high_us = WaitFor(*line, 0, kTimeoutUs);
-        if (high_us < 0) return false;
+        if (high_us < 0) return kBitTimeout;
         const int bit = high_us > kBitThresholdUs ? 1 : 0;
 
         // i / 8 은 몇 번째 바이트인지를 뜻한다. (0~7번 비트는 0번 바이트)
@@ -101,14 +113,23 @@ bool ReadOnce(Gpio* line, int* humidity, int* temperature) {
     // 4) 체크섬: 앞의 4바이트를 더한 값이 5번째 바이트와 다르면 잘못 받은 것이니 버린다.
     // static_cast로 1바이트로 잘라서 비교한다. 합이 255를 넘을 수 있기 때문이다.
     if (static_cast<std::uint8_t>(data[0] + data[1] + data[2] + data[3]) != data[4]) {
-        return false;
+        return kChecksumFail;
     }
 
     // data[0]: 습도 정수, data[1]: 습도 소수, data[2]: 온도 정수, data[3]: 온도 소수
     // DHT11은 소수 부분이 항상 0이라서 정수 부분만 쓴다.
     *humidity = data[0];
     *temperature = data[2];
-    return true;
+    return kReadOk;
+}
+
+// 지금까지의 결과를 이유별로 출력한다. 비율은 전체 시도 대비 퍼센트다.
+void PrintSummary(const int* counts, int total) {
+    std::printf("\n===== %d reads (threshold %ld us) =====\n", total, kBitThresholdUs);
+    for (int i = 0; i < kResultCount; ++i) {
+        const double percent = total > 0 ? 100.0 * counts[i] / total : 0.0;
+        std::printf("  %-14s %4d  (%5.1f%%)\n", kResultNames[i], counts[i], percent);
+    }
 }
 
 int main() {
@@ -118,19 +139,32 @@ int main() {
 
     std::printf("DHT11 on GPIO%u. Ctrl-C to stop\n", kDataPin);
 
+    // 결과별 횟수. counts[kChecksumFail]이 체크섬 실패 횟수다.
+    int counts[kResultCount] = {0};
+    int total = 0;
+
     while (!StopRequested()) {
         int humidity = 0;
         int temperature = 0;
 
-        if (ReadOnce(&line, &humidity, &temperature)) {
-            std::printf("%d C  %d %%\n", temperature, humidity);
+        const ReadResult result = ReadOnce(&line, &humidity, &temperature);
+        ++counts[result];
+        ++total;
+
+        if (result == kReadOk) {
+            std::printf("[%3d] %d C  %d %%", total, temperature, humidity);
         } else {
             // 비트뱅잉은 운영체제가 잠깐 다른 일을 하면 시간이 어긋나서 가끔 실패할 수 있다.
-            std::printf("read failed -- check the pull-up and the 20 ms pulse\n");
+            std::printf("[%3d] read failed: %s", total, kResultNames[result]);
         }
+        // 매번 체크섬 실패 누적 횟수를 함께 보여 준다. (과제 2)
+        std::printf("   (checksum fail %d/%d)\n", counts[kChecksumFail], total);
         std::fflush(stdout);
 
         usleep(kIntervalUs);  // 다음 측정까지 2초 기다린다.
     }
+
+    // Ctrl+C로 끝내면 전체 요약을 보여 준다. 과제 2에서 임계값별 실패율을 비교할 때 쓴다.
+    PrintSummary(counts, total);
     return 0;
 }

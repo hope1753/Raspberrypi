@@ -1,0 +1,147 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="760" viewBox="0 0 1000 760" font-family="'Malgun Gothic','Noto Sans KR',sans-serif">
+<rect width="1000" height="760" fill="#ffffff"/>
+<text x="30" y="40" font-size="22" font-weight="700" fill="#1f2937">실습 2 회로 구성 - LED와 스위치, PWM, 상태 기계</text>
+<rect x="30" y="60" width="940" height="300" rx="10" fill="#f8fafc" stroke="#cbd5e1"/>
+<text x="46" y="88" font-size="16" fill="#1f2937" text-anchor="start" font-weight="700">2-A 버튼 토글 / 2-B PWM 밝기 조절</text>
+<circle cx="160" cy="130" r="5" fill="#ffffff" stroke="#2563eb" stroke-width="2"/>
+<text x="148" y="135" font-size="14" fill="#2563eb" text-anchor="end" font-weight="700">GPIO17 (핀 11)</text>
+<path d="M190 130 L200 130 L204.16666666666666 122 L212.5 138 L220.83333333333334 122 L229.16666666666666 138 L237.5 122 L245.83333333333334 138 L250 130 L260 130" fill="none" stroke="#1f2937" stroke-width="2" stroke-linejoin="round"/>
+<text x="225.0" y="114" font-size="13" fill="#1f2937" text-anchor="middle" font-weight="400">330Ω</text>
+<path d="M165 130 L190 130" fill="none" stroke="#1f2937" stroke-width="2" stroke-linejoin="round"/>
+<path d="M270 130 L284 130" fill="none" stroke="#1f2937" stroke-width="2" stroke-linejoin="round"/>
+<path d="M284 118 L284 142 L306 130 Z" fill="#facc15" stroke="#1f2937" stroke-width="2" stroke-linejoin="round"/>
+<line x1="306" y1="118" x2="306" y2="142" stroke="#1f2937" stroke-width="2"/>
+<path d="M306 130 L320 130" fill="none" stroke="#1f2937" stroke-width="2" stroke-linejoin="round"/>
+<text x="295" y="110" font-size="13" fill="#1f2937" text-anchor="middle" font-weight="400">LED</text>
+<path d="M260 130 L270 130" fill="none" stroke="#1f2937" stroke-width="2" stroke-linejoin="round"/>
+<path d="M320 130 L350 130" fill="none" stroke="#1f2937" stroke-width="2" stroke-linejoin="round"/>
+<path d="M350 130 L350 142" fill="none" stroke="#1f2937" stroke-width="2" stroke-linejoin="round"/>
+<line x1="338" y1="142" x2="362" y2="142" stroke="#1f2937" stroke-width="2"/>
+<line x1="342" y1="147" x2="358" y2="147" stroke="#1f2937" stroke-width="2"/>
+<line x1="346" y1="152" x2="354" y2="152" stroke="#1f2937" stroke-width="2"/>
+<text x="350" y="172" font-size="12" fill="#6b7280" text-anchor="middle" font-weight="400">GND</text>
+<circle cx="160" cy="230" r="5" fill="#ffffff" stroke="#dc2626" stroke-width="2"/>
+<text x="148" y="235" font-size="14" fill="#dc2626" text-anchor="end" font-weight="700">3.3V</text>
+<path d="M165 230 L190 230" fill="none" stroke="#1f2937" stroke-width="2" stroke-linejoin="round"/>
+<path d="M190 230 L200 230 L204.16666666666666 222 L212.5 238 L220.83333333333334 222 L229.16666666666666 238 L237.5 222 L245.83333333333334 238 L250 230 L260 230" fill="none" stroke="#1f2937" stroke-width="2" stroke-linejoin="round"/>
+<text x="225.0" y="214" font-size="13" fill="#1f2937" text-anchor="middle" font-weight="400">10kΩ 풀업</text>
+<path d="M260 230 L320 230" fill="none" stroke="#1f2937" stroke-width="2" stroke-linejoin="round"/>
+<circle cx="290" cy="230" r="4" fill="#1f2937"/>
+<path d="M290 230 L290 276" fill="none" stroke="#1f2937" stroke-width="2" stroke-linejoin="round"/>
+<circle cx="290" cy="281" r="5" fill="#ffffff" stroke="#2563eb" stroke-width="2"/>
+<text x="302" y="286" font-size="14" fill="#2563eb" text-anchor="start" font-weight="700">GPIO23 (핀 16) · 2-A</text>
+<path d="M320 230 L334 230" fill="none" stroke="#1f2937" stroke-width="2" stroke-linejoin="round"/>
+<path d="M366 230 L380 230" fill="none" stroke="#1f2937" stroke-width="2" stroke-linejoin="round"/>
+<circle cx="336" cy="230" r="3.5" fill="#ffffff" stroke="#1f2937" stroke-width="2"/>
+<circle cx="364" cy="230" r="3.5" fill="#ffffff" stroke="#1f2937" stroke-width="2"/>
+<line x1="334" y1="218" x2="366" y2="218" stroke="#1f2937" stroke-width="2"/>
+<line x1="350" y1="218" x2="350" y2="208" stroke="#1f2937" stroke-width="2"/>
+<text x="350" y="254" font-size="13" fill="#1f2937" text-anchor="middle" font-weight="400">버튼</text>
+<path d="M380 230 L410 230" fill="none" stroke="#1f2937" stroke-width="2" stroke-linejoin="round"/>
+<path d="M410 230 L410 242" fill="none" stroke="#1f2937" stroke-width="2" stroke-linejoin="round"/>
+<line x1="398" y1="242" x2="422" y2="242" stroke="#1f2937" stroke-width="2"/>
+<line x1="402" y1="247" x2="418" y2="247" stroke="#1f2937" stroke-width="2"/>
+<line x1="406" y1="252" x2="414" y2="252" stroke="#1f2937" stroke-width="2"/>
+<text x="410" y="272" font-size="12" fill="#6b7280" text-anchor="middle" font-weight="400">GND</text>
+<circle cx="600" cy="230" r="5" fill="#ffffff" stroke="#dc2626" stroke-width="2"/>
+<text x="588" y="235" font-size="14" fill="#dc2626" text-anchor="end" font-weight="700">3.3V</text>
+<path d="M605 230 L630 230" fill="none" stroke="#1f2937" stroke-width="2" stroke-linejoin="round"/>
+<path d="M630 230 L640 230 L644.1666666666666 222 L652.5 238 L660.8333333333334 222 L669.1666666666666 238 L677.5 222 L685.8333333333334 238 L690 230 L700 230" fill="none" stroke="#1f2937" stroke-width="2" stroke-linejoin="round"/>
+<text x="665.0" y="214" font-size="13" fill="#1f2937" text-anchor="middle" font-weight="400">10kΩ 풀업</text>
+<path d="M700 230 L760 230" fill="none" stroke="#1f2937" stroke-width="2" stroke-linejoin="round"/>
+<circle cx="730" cy="230" r="4" fill="#1f2937"/>
+<path d="M730 230 L730 276" fill="none" stroke="#1f2937" stroke-width="2" stroke-linejoin="round"/>
+<circle cx="730" cy="281" r="5" fill="#ffffff" stroke="#2563eb" stroke-width="2"/>
+<text x="742" y="286" font-size="14" fill="#2563eb" text-anchor="start" font-weight="700">GPIO24 (핀 18) · 2-B</text>
+<path d="M760 230 L774 230" fill="none" stroke="#1f2937" stroke-width="2" stroke-linejoin="round"/>
+<path d="M806 230 L820 230" fill="none" stroke="#1f2937" stroke-width="2" stroke-linejoin="round"/>
+<circle cx="776" cy="230" r="3.5" fill="#ffffff" stroke="#1f2937" stroke-width="2"/>
+<circle cx="804" cy="230" r="3.5" fill="#ffffff" stroke="#1f2937" stroke-width="2"/>
+<line x1="774" y1="218" x2="806" y2="218" stroke="#1f2937" stroke-width="2"/>
+<line x1="790" y1="218" x2="790" y2="208" stroke="#1f2937" stroke-width="2"/>
+<text x="790" y="254" font-size="13" fill="#1f2937" text-anchor="middle" font-weight="400">버튼</text>
+<path d="M820 230 L850 230" fill="none" stroke="#1f2937" stroke-width="2" stroke-linejoin="round"/>
+<path d="M850 230 L850 242" fill="none" stroke="#1f2937" stroke-width="2" stroke-linejoin="round"/>
+<line x1="838" y1="242" x2="862" y2="242" stroke="#1f2937" stroke-width="2"/>
+<line x1="842" y1="247" x2="858" y2="247" stroke="#1f2937" stroke-width="2"/>
+<line x1="846" y1="252" x2="854" y2="252" stroke="#1f2937" stroke-width="2"/>
+<text x="850" y="272" font-size="12" fill="#6b7280" text-anchor="middle" font-weight="400">GND</text>
+<text x="46" y="340" font-size="12" fill="#6b7280" text-anchor="start" font-weight="400">버튼은 풀업 회로다. 평소에는 HIGH, 누르면 GND와 연결되어 LOW가 된다.</text>
+<rect x="30" y="380" width="940" height="350" rx="10" fill="#f8fafc" stroke="#cbd5e1"/>
+<text x="46" y="408" font-size="16" fill="#1f2937" text-anchor="start" font-weight="700">2-C 신호등 상태 기계 (과제 3: 노란 LED 추가)</text>
+<circle cx="160" cy="450" r="5" fill="#ffffff" stroke="#2563eb" stroke-width="2"/>
+<text x="148" y="455" font-size="14" fill="#2563eb" text-anchor="end" font-weight="700">GPIO22 (핀 15)</text>
+<path d="M190 450 L200 450 L204.16666666666666 442 L212.5 458 L220.83333333333334 442 L229.16666666666666 458 L237.5 442 L245.83333333333334 458 L250 450 L260 450" fill="none" stroke="#1f2937" stroke-width="2" stroke-linejoin="round"/>
+<text x="225.0" y="434" font-size="13" fill="#1f2937" text-anchor="middle" font-weight="400">330Ω</text>
+<path d="M165 450 L190 450" fill="none" stroke="#1f2937" stroke-width="2" stroke-linejoin="round"/>
+<path d="M270 450 L284 450" fill="none" stroke="#1f2937" stroke-width="2" stroke-linejoin="round"/>
+<path d="M284 438 L284 462 L306 450 Z" fill="#ef4444" stroke="#1f2937" stroke-width="2" stroke-linejoin="round"/>
+<line x1="306" y1="438" x2="306" y2="462" stroke="#1f2937" stroke-width="2"/>
+<path d="M306 450 L320 450" fill="none" stroke="#1f2937" stroke-width="2" stroke-linejoin="round"/>
+<text x="295" y="430" font-size="13" fill="#1f2937" text-anchor="middle" font-weight="400">빨강 · WALK</text>
+<path d="M260 450 L270 450" fill="none" stroke="#1f2937" stroke-width="2" stroke-linejoin="round"/>
+<path d="M320 450 L350 450" fill="none" stroke="#1f2937" stroke-width="2" stroke-linejoin="round"/>
+<path d="M350 450 L350 462" fill="none" stroke="#1f2937" stroke-width="2" stroke-linejoin="round"/>
+<line x1="338" y1="462" x2="362" y2="462" stroke="#1f2937" stroke-width="2"/>
+<line x1="342" y1="467" x2="358" y2="467" stroke="#1f2937" stroke-width="2"/>
+<line x1="346" y1="472" x2="354" y2="472" stroke="#1f2937" stroke-width="2"/>
+<text x="350" y="492" font-size="12" fill="#6b7280" text-anchor="middle" font-weight="400">GND</text>
+<circle cx="160" cy="530" r="5" fill="#ffffff" stroke="#2563eb" stroke-width="2"/>
+<text x="148" y="535" font-size="14" fill="#2563eb" text-anchor="end" font-weight="700">GPIO17 (핀 11)</text>
+<path d="M190 530 L200 530 L204.16666666666666 522 L212.5 538 L220.83333333333334 522 L229.16666666666666 538 L237.5 522 L245.83333333333334 538 L250 530 L260 530" fill="none" stroke="#1f2937" stroke-width="2" stroke-linejoin="round"/>
+<text x="225.0" y="514" font-size="13" fill="#1f2937" text-anchor="middle" font-weight="400">330Ω</text>
+<path d="M165 530 L190 530" fill="none" stroke="#1f2937" stroke-width="2" stroke-linejoin="round"/>
+<path d="M270 530 L284 530" fill="none" stroke="#1f2937" stroke-width="2" stroke-linejoin="round"/>
+<path d="M284 518 L284 542 L306 530 Z" fill="#facc15" stroke="#1f2937" stroke-width="2" stroke-linejoin="round"/>
+<line x1="306" y1="518" x2="306" y2="542" stroke="#1f2937" stroke-width="2"/>
+<path d="M306 530 L320 530" fill="none" stroke="#1f2937" stroke-width="2" stroke-linejoin="round"/>
+<text x="295" y="510" font-size="13" fill="#1f2937" text-anchor="middle" font-weight="400">노랑 · WARN</text>
+<path d="M260 530 L270 530" fill="none" stroke="#1f2937" stroke-width="2" stroke-linejoin="round"/>
+<path d="M320 530 L350 530" fill="none" stroke="#1f2937" stroke-width="2" stroke-linejoin="round"/>
+<path d="M350 530 L350 542" fill="none" stroke="#1f2937" stroke-width="2" stroke-linejoin="round"/>
+<line x1="338" y1="542" x2="362" y2="542" stroke="#1f2937" stroke-width="2"/>
+<line x1="342" y1="547" x2="358" y2="547" stroke="#1f2937" stroke-width="2"/>
+<line x1="346" y1="552" x2="354" y2="552" stroke="#1f2937" stroke-width="2"/>
+<text x="350" y="572" font-size="12" fill="#6b7280" text-anchor="middle" font-weight="400">GND</text>
+<circle cx="160" cy="610" r="5" fill="#ffffff" stroke="#2563eb" stroke-width="2"/>
+<text x="148" y="615" font-size="14" fill="#2563eb" text-anchor="end" font-weight="700">GPIO27 (핀 13)</text>
+<path d="M190 610 L200 610 L204.16666666666666 602 L212.5 618 L220.83333333333334 602 L229.16666666666666 618 L237.5 602 L245.83333333333334 618 L250 610 L260 610" fill="none" stroke="#1f2937" stroke-width="2" stroke-linejoin="round"/>
+<text x="225.0" y="594" font-size="13" fill="#1f2937" text-anchor="middle" font-weight="400">330Ω</text>
+<path d="M165 610 L190 610" fill="none" stroke="#1f2937" stroke-width="2" stroke-linejoin="round"/>
+<path d="M270 610 L284 610" fill="none" stroke="#1f2937" stroke-width="2" stroke-linejoin="round"/>
+<path d="M284 598 L284 622 L306 610 Z" fill="#22c55e" stroke="#1f2937" stroke-width="2" stroke-linejoin="round"/>
+<line x1="306" y1="598" x2="306" y2="622" stroke="#1f2937" stroke-width="2"/>
+<path d="M306 610 L320 610" fill="none" stroke="#1f2937" stroke-width="2" stroke-linejoin="round"/>
+<text x="295" y="590" font-size="13" fill="#1f2937" text-anchor="middle" font-weight="400">초록 · CAR GO</text>
+<path d="M260 610 L270 610" fill="none" stroke="#1f2937" stroke-width="2" stroke-linejoin="round"/>
+<path d="M320 610 L350 610" fill="none" stroke="#1f2937" stroke-width="2" stroke-linejoin="round"/>
+<path d="M350 610 L350 622" fill="none" stroke="#1f2937" stroke-width="2" stroke-linejoin="round"/>
+<line x1="338" y1="622" x2="362" y2="622" stroke="#1f2937" stroke-width="2"/>
+<line x1="342" y1="627" x2="358" y2="627" stroke="#1f2937" stroke-width="2"/>
+<line x1="346" y1="632" x2="354" y2="632" stroke="#1f2937" stroke-width="2"/>
+<text x="350" y="652" font-size="12" fill="#6b7280" text-anchor="middle" font-weight="400">GND</text>
+<circle cx="600" cy="530" r="5" fill="#ffffff" stroke="#dc2626" stroke-width="2"/>
+<text x="588" y="535" font-size="14" fill="#dc2626" text-anchor="end" font-weight="700">3.3V</text>
+<path d="M605 530 L630 530" fill="none" stroke="#1f2937" stroke-width="2" stroke-linejoin="round"/>
+<path d="M630 530 L640 530 L644.1666666666666 522 L652.5 538 L660.8333333333334 522 L669.1666666666666 538 L677.5 522 L685.8333333333334 538 L690 530 L700 530" fill="none" stroke="#1f2937" stroke-width="2" stroke-linejoin="round"/>
+<text x="665.0" y="514" font-size="13" fill="#1f2937" text-anchor="middle" font-weight="400">10kΩ 풀업</text>
+<path d="M700 530 L760 530" fill="none" stroke="#1f2937" stroke-width="2" stroke-linejoin="round"/>
+<circle cx="730" cy="530" r="4" fill="#1f2937"/>
+<path d="M730 530 L730 576" fill="none" stroke="#1f2937" stroke-width="2" stroke-linejoin="round"/>
+<circle cx="730" cy="581" r="5" fill="#ffffff" stroke="#2563eb" stroke-width="2"/>
+<text x="742" y="586" font-size="14" fill="#2563eb" text-anchor="start" font-weight="700">GPIO23 (핀 16)</text>
+<path d="M760 530 L774 530" fill="none" stroke="#1f2937" stroke-width="2" stroke-linejoin="round"/>
+<path d="M806 530 L820 530" fill="none" stroke="#1f2937" stroke-width="2" stroke-linejoin="round"/>
+<circle cx="776" cy="530" r="3.5" fill="#ffffff" stroke="#1f2937" stroke-width="2"/>
+<circle cx="804" cy="530" r="3.5" fill="#ffffff" stroke="#1f2937" stroke-width="2"/>
+<line x1="774" y1="518" x2="806" y2="518" stroke="#1f2937" stroke-width="2"/>
+<line x1="790" y1="518" x2="790" y2="508" stroke="#1f2937" stroke-width="2"/>
+<text x="790" y="554" font-size="13" fill="#1f2937" text-anchor="middle" font-weight="400">보행자 버튼</text>
+<path d="M820 530 L850 530" fill="none" stroke="#1f2937" stroke-width="2" stroke-linejoin="round"/>
+<path d="M850 530 L850 542" fill="none" stroke="#1f2937" stroke-width="2" stroke-linejoin="round"/>
+<line x1="838" y1="542" x2="862" y2="542" stroke="#1f2937" stroke-width="2"/>
+<line x1="842" y1="547" x2="858" y2="547" stroke="#1f2937" stroke-width="2"/>
+<line x1="846" y1="552" x2="854" y2="552" stroke="#1f2937" stroke-width="2"/>
+<text x="850" y="572" font-size="12" fill="#6b7280" text-anchor="middle" font-weight="400">GND</text>
+<text x="46" y="712" font-size="12" fill="#6b7280" text-anchor="start" font-weight="400">LED마다 330Ω 저항을 직렬로 연결해 전류를 제한한다.</text>
+</svg>

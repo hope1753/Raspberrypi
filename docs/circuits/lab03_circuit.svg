@@ -1,0 +1,143 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="1240" viewBox="0 0 1000 1240" font-family="'Malgun Gothic','Noto Sans KR',sans-serif">
+<rect width="1000" height="1240" fill="#ffffff"/>
+<text x="30" y="40" font-size="22" font-weight="700" fill="#1f2937">실습 3 회로 구성 - 온습도·조도·거리 센서</text>
+<rect x="30" y="60" width="940" height="290" rx="10" fill="#f8fafc" stroke="#cbd5e1"/>
+<text x="46" y="88" font-size="16" fill="#1f2937" text-anchor="start" font-weight="700">3-A DHT11 온습도 (단일선 비트뱅잉)</text>
+<rect x="120" y="130" width="110" height="150" rx="6" fill="#ffffff" stroke="#1f2937" stroke-width="2"/>
+<text x="175.0" y="120" font-size="15" fill="#1f2937" text-anchor="middle" font-weight="700">DHT11</text>
+<path d="M230 155 L254 155" fill="none" stroke="#1f2937" stroke-width="2" stroke-linejoin="round"/>
+<text x="222" y="160" font-size="13" fill="#1f2937" text-anchor="end" font-weight="400">VCC</text>
+<path d="M230 220 L254 220" fill="none" stroke="#1f2937" stroke-width="2" stroke-linejoin="round"/>
+<text x="222" y="225" font-size="13" fill="#1f2937" text-anchor="end" font-weight="400">DATA</text>
+<path d="M230 258 L254 258" fill="none" stroke="#1f2937" stroke-width="2" stroke-linejoin="round"/>
+<text x="222" y="263" font-size="13" fill="#1f2937" text-anchor="end" font-weight="400">GND</text>
+<path d="M254 155 L474 155" fill="none" stroke="#dc2626" stroke-width="2" stroke-linejoin="round"/>
+<circle cx="479" cy="155" r="5" fill="#ffffff" stroke="#dc2626" stroke-width="2"/>
+<text x="491" y="160" font-size="14" fill="#dc2626" text-anchor="start" font-weight="700">3.3V</text>
+<circle cx="314" cy="155" r="4" fill="#1f2937"/>
+<path d="M314 155 L314 165 L306 168.75 L322 176.25 L306 183.75 L322 191.25 L306 198.75 L322 206.25 L314 210 L314 220" fill="none" stroke="#1f2937" stroke-width="2" stroke-linejoin="round"/>
+<text x="330" y="192.5" font-size="13" fill="#1f2937" text-anchor="start" font-weight="400">10kΩ 풀업</text>
+<circle cx="314" cy="220" r="4" fill="#1f2937"/>
+<path d="M254 220 L474 220" fill="none" stroke="#1f2937" stroke-width="2" stroke-linejoin="round"/>
+<circle cx="479" cy="220" r="5" fill="#ffffff" stroke="#2563eb" stroke-width="2"/>
+<text x="491" y="225" font-size="14" fill="#2563eb" text-anchor="start" font-weight="700">GPIO4 (핀 7)</text>
+<path d="M254 258 L284 258" fill="none" stroke="#1f2937" stroke-width="2" stroke-linejoin="round"/>
+<path d="M284 258 L284 270" fill="none" stroke="#1f2937" stroke-width="2" stroke-linejoin="round"/>
+<line x1="272" y1="270" x2="296" y2="270" stroke="#1f2937" stroke-width="2"/>
+<line x1="276" y1="275" x2="292" y2="275" stroke="#1f2937" stroke-width="2"/>
+<line x1="280" y1="280" x2="288" y2="280" stroke="#1f2937" stroke-width="2"/>
+<text x="284" y="300" font-size="12" fill="#6b7280" text-anchor="middle" font-weight="400">GND</text>
+<text x="120" y="320" font-size="12" fill="#6b7280" text-anchor="start" font-weight="400">모듈형(3핀)은 풀업 저항이 기판에 들어 있다.</text>
+<rect x="30" y="370" width="940" height="400" rx="10" fill="#f8fafc" stroke="#cbd5e1"/>
+<text x="46" y="398" font-size="16" fill="#1f2937" text-anchor="start" font-weight="700">3-B CdS 조도 + MCP3008 (SPI)</text>
+<circle cx="130" cy="430" r="5" fill="#ffffff" stroke="#dc2626" stroke-width="2"/>
+<text x="142" y="435" font-size="14" fill="#dc2626" text-anchor="start" font-weight="700">3.3V</text>
+<path d="M130 435 L130 450" fill="none" stroke="#dc2626" stroke-width="2" stroke-linejoin="round"/>
+<path d="M130 450 L130 460 L122 464.1666666666667 L138 472.5 L122 480.8333333333333 L138 489.1666666666667 L122 497.5 L138 505.8333333333333 L130 510 L130 520" fill="none" stroke="#1f2937" stroke-width="2" stroke-linejoin="round"/>
+<text x="146" y="490.0" font-size="13" fill="#1f2937" text-anchor="start" font-weight="400">CdS</text>
+<path d="M130 520 L130 550" fill="none" stroke="#1f2937" stroke-width="2" stroke-linejoin="round"/>
+<circle cx="130" cy="535" r="4" fill="#1f2937"/>
+<path d="M130 550 L130 560 L122 564.1666666666666 L138 572.5 L122 580.8333333333334 L138 589.1666666666666 L122 597.5 L138 605.8333333333334 L130 610 L130 620" fill="none" stroke="#1f2937" stroke-width="2" stroke-linejoin="round"/>
+<text x="146" y="590.0" font-size="13" fill="#1f2937" text-anchor="start" font-weight="400">10kΩ</text>
+<path d="M130 620 L130 632" fill="none" stroke="#1f2937" stroke-width="2" stroke-linejoin="round"/>
+<line x1="118" y1="632" x2="142" y2="632" stroke="#1f2937" stroke-width="2"/>
+<line x1="122" y1="637" x2="138" y2="637" stroke="#1f2937" stroke-width="2"/>
+<line x1="126" y1="642" x2="134" y2="642" stroke="#1f2937" stroke-width="2"/>
+<text x="130" y="662" font-size="12" fill="#6b7280" text-anchor="middle" font-weight="400">GND</text>
+<rect x="280" y="450" width="150" height="228" rx="6" fill="#ffffff" stroke="#1f2937" stroke-width="2"/>
+<text x="355.0" y="440" font-size="15" fill="#1f2937" text-anchor="middle" font-weight="700">MCP3008</text>
+<path d="M256 535 L280 535" fill="none" stroke="#1f2937" stroke-width="2" stroke-linejoin="round"/>
+<text x="288" y="540" font-size="13" fill="#1f2937" text-anchor="start" font-weight="400">CH0</text>
+<path d="M430 474 L454 474" fill="none" stroke="#1f2937" stroke-width="2" stroke-linejoin="round"/>
+<text x="422" y="479" font-size="13" fill="#1f2937" text-anchor="end" font-weight="400">VDD</text>
+<path d="M430 500 L454 500" fill="none" stroke="#1f2937" stroke-width="2" stroke-linejoin="round"/>
+<text x="422" y="505" font-size="13" fill="#1f2937" text-anchor="end" font-weight="400">VREF</text>
+<path d="M430 526 L454 526" fill="none" stroke="#1f2937" stroke-width="2" stroke-linejoin="round"/>
+<text x="422" y="531" font-size="13" fill="#1f2937" text-anchor="end" font-weight="400">AGND</text>
+<path d="M430 552 L454 552" fill="none" stroke="#1f2937" stroke-width="2" stroke-linejoin="round"/>
+<text x="422" y="557" font-size="13" fill="#1f2937" text-anchor="end" font-weight="400">CLK</text>
+<path d="M430 578 L454 578" fill="none" stroke="#1f2937" stroke-width="2" stroke-linejoin="round"/>
+<text x="422" y="583" font-size="13" fill="#1f2937" text-anchor="end" font-weight="400">DOUT</text>
+<path d="M430 604 L454 604" fill="none" stroke="#1f2937" stroke-width="2" stroke-linejoin="round"/>
+<text x="422" y="609" font-size="13" fill="#1f2937" text-anchor="end" font-weight="400">DIN</text>
+<path d="M430 630 L454 630" fill="none" stroke="#1f2937" stroke-width="2" stroke-linejoin="round"/>
+<text x="422" y="635" font-size="13" fill="#1f2937" text-anchor="end" font-weight="400">CS</text>
+<path d="M430 656 L454 656" fill="none" stroke="#1f2937" stroke-width="2" stroke-linejoin="round"/>
+<text x="422" y="661" font-size="13" fill="#1f2937" text-anchor="end" font-weight="400">DGND</text>
+<path d="M130 535 L256 535" fill="none" stroke="#1f2937" stroke-width="2" stroke-linejoin="round"/>
+<path d="M454 474 L484 474" fill="none" stroke="#dc2626" stroke-width="2" stroke-linejoin="round"/>
+<circle cx="489" cy="474" r="5" fill="#ffffff" stroke="#dc2626" stroke-width="2"/>
+<text x="501" y="479" font-size="14" fill="#dc2626" text-anchor="start" font-weight="700">3.3V</text>
+<path d="M454 500 L484 500" fill="none" stroke="#dc2626" stroke-width="2" stroke-linejoin="round"/>
+<circle cx="489" cy="500" r="5" fill="#ffffff" stroke="#dc2626" stroke-width="2"/>
+<text x="501" y="505" font-size="14" fill="#dc2626" text-anchor="start" font-weight="700">3.3V</text>
+<path d="M454 526 L484 526" fill="none" stroke="#1f2937" stroke-width="2" stroke-linejoin="round"/>
+<circle cx="489" cy="526" r="5" fill="#ffffff" stroke="#1f2937" stroke-width="2"/>
+<text x="501" y="531" font-size="14" fill="#1f2937" text-anchor="start" font-weight="700">GND</text>
+<path d="M454 552 L484 552" fill="none" stroke="#2563eb" stroke-width="2" stroke-linejoin="round"/>
+<circle cx="489" cy="552" r="5" fill="#ffffff" stroke="#2563eb" stroke-width="2"/>
+<text x="501" y="557" font-size="14" fill="#2563eb" text-anchor="start" font-weight="700">GPIO11 SCLK (핀 23)</text>
+<path d="M454 578 L484 578" fill="none" stroke="#2563eb" stroke-width="2" stroke-linejoin="round"/>
+<circle cx="489" cy="578" r="5" fill="#ffffff" stroke="#2563eb" stroke-width="2"/>
+<text x="501" y="583" font-size="14" fill="#2563eb" text-anchor="start" font-weight="700">GPIO9 MISO (핀 21)</text>
+<path d="M454 604 L484 604" fill="none" stroke="#2563eb" stroke-width="2" stroke-linejoin="round"/>
+<circle cx="489" cy="604" r="5" fill="#ffffff" stroke="#2563eb" stroke-width="2"/>
+<text x="501" y="609" font-size="14" fill="#2563eb" text-anchor="start" font-weight="700">GPIO10 MOSI (핀 19)</text>
+<path d="M454 630 L484 630" fill="none" stroke="#2563eb" stroke-width="2" stroke-linejoin="round"/>
+<circle cx="489" cy="630" r="5" fill="#ffffff" stroke="#2563eb" stroke-width="2"/>
+<text x="501" y="635" font-size="14" fill="#2563eb" text-anchor="start" font-weight="700">GPIO8 CE0 (핀 24)</text>
+<path d="M454 656 L484 656" fill="none" stroke="#1f2937" stroke-width="2" stroke-linejoin="round"/>
+<circle cx="489" cy="656" r="5" fill="#ffffff" stroke="#1f2937" stroke-width="2"/>
+<text x="501" y="661" font-size="14" fill="#1f2937" text-anchor="start" font-weight="700">GND</text>
+<text x="110" y="718" font-size="12" fill="#6b7280" text-anchor="start" font-weight="400">밝을수록 CdS 저항이 줄어 CH0 전압이 올라간다.</text>
+<rect x="30" y="790" width="940" height="420" rx="10" fill="#f8fafc" stroke="#cbd5e1"/>
+<text x="46" y="818" font-size="16" fill="#1f2937" text-anchor="start" font-weight="700">3-C HC-SR04 거리 (펄스 폭 측정) + 부저</text>
+<rect x="120" y="860" width="120" height="150" rx="6" fill="#ffffff" stroke="#1f2937" stroke-width="2"/>
+<text x="180.0" y="850" font-size="15" fill="#1f2937" text-anchor="middle" font-weight="700">HC-SR04</text>
+<path d="M240 884 L264 884" fill="none" stroke="#1f2937" stroke-width="2" stroke-linejoin="round"/>
+<text x="232" y="889" font-size="13" fill="#1f2937" text-anchor="end" font-weight="400">VCC</text>
+<path d="M240 918 L264 918" fill="none" stroke="#1f2937" stroke-width="2" stroke-linejoin="round"/>
+<text x="232" y="923" font-size="13" fill="#1f2937" text-anchor="end" font-weight="400">TRIG</text>
+<path d="M240 952 L264 952" fill="none" stroke="#1f2937" stroke-width="2" stroke-linejoin="round"/>
+<text x="232" y="957" font-size="13" fill="#1f2937" text-anchor="end" font-weight="400">ECHO</text>
+<path d="M240 986 L264 986" fill="none" stroke="#1f2937" stroke-width="2" stroke-linejoin="round"/>
+<text x="232" y="991" font-size="13" fill="#1f2937" text-anchor="end" font-weight="400">GND</text>
+<path d="M264 884 L514 884" fill="none" stroke="#ea580c" stroke-width="2" stroke-linejoin="round"/>
+<circle cx="519" cy="884" r="5" fill="#ffffff" stroke="#ea580c" stroke-width="2"/>
+<text x="531" y="889" font-size="14" fill="#ea580c" text-anchor="start" font-weight="700">5V (핀 2)</text>
+<path d="M264 918 L514 918" fill="none" stroke="#1f2937" stroke-width="2" stroke-linejoin="round"/>
+<circle cx="519" cy="918" r="5" fill="#ffffff" stroke="#2563eb" stroke-width="2"/>
+<text x="531" y="923" font-size="14" fill="#2563eb" text-anchor="start" font-weight="700">GPIO23 (핀 16)</text>
+<path d="M264 952 L274 952 L278.1666666666667 944 L286.5 960 L294.8333333333333 944 L303.1666666666667 960 L311.5 944 L319.8333333333333 960 L324 952 L334 952" fill="none" stroke="#1f2937" stroke-width="2" stroke-linejoin="round"/>
+<text x="299.0" y="936" font-size="13" fill="#1f2937" text-anchor="middle" font-weight="400">1kΩ</text>
+<path d="M334 952 L514 952" fill="none" stroke="#1f2937" stroke-width="2" stroke-linejoin="round"/>
+<circle cx="374" cy="952" r="4" fill="#1f2937"/>
+<circle cx="519" cy="952" r="5" fill="#ffffff" stroke="#2563eb" stroke-width="2"/>
+<text x="531" y="957" font-size="14" fill="#2563eb" text-anchor="start" font-weight="700">GPIO24 (핀 18)</text>
+<path d="M374 952 L374 962 L366 966.1666666666666 L382 974.5 L366 982.8333333333334 L382 991.1666666666666 L366 999.5 L382 1007.8333333333334 L374 1012 L374 1022" fill="none" stroke="#1f2937" stroke-width="2" stroke-linejoin="round"/>
+<text x="390" y="992.0" font-size="13" fill="#1f2937" text-anchor="start" font-weight="400">2kΩ</text>
+<path d="M374 1022 L374 1034" fill="none" stroke="#1f2937" stroke-width="2" stroke-linejoin="round"/>
+<line x1="362" y1="1034" x2="386" y2="1034" stroke="#1f2937" stroke-width="2"/>
+<line x1="366" y1="1039" x2="382" y2="1039" stroke="#1f2937" stroke-width="2"/>
+<line x1="370" y1="1044" x2="378" y2="1044" stroke="#1f2937" stroke-width="2"/>
+<text x="374" y="1064" font-size="12" fill="#6b7280" text-anchor="middle" font-weight="400">GND</text>
+<path d="M264 986 L304 986 L304 1016" fill="none" stroke="#1f2937" stroke-width="2" stroke-linejoin="round"/>
+<path d="M304 1016 L304 1028" fill="none" stroke="#1f2937" stroke-width="2" stroke-linejoin="round"/>
+<line x1="292" y1="1028" x2="316" y2="1028" stroke="#1f2937" stroke-width="2"/>
+<line x1="296" y1="1033" x2="312" y2="1033" stroke="#1f2937" stroke-width="2"/>
+<line x1="300" y1="1038" x2="308" y2="1038" stroke="#1f2937" stroke-width="2"/>
+<text x="304" y="1058" font-size="12" fill="#6b7280" text-anchor="middle" font-weight="400">GND</text>
+<text x="120" y="1092" font-size="12" fill="#6b7280" text-anchor="start" font-weight="400">ECHO는 5V 신호라서 1kΩ/2kΩ 분압으로 약 3.3V로 낮춘다.</text>
+<circle cx="160" cy="1150" r="5" fill="#ffffff" stroke="#2563eb" stroke-width="2"/>
+<text x="148" y="1155" font-size="14" fill="#2563eb" text-anchor="end" font-weight="700">GPIO18 (핀 12)</text>
+<path d="M165 1150 L210 1150" fill="none" stroke="#1f2937" stroke-width="2" stroke-linejoin="round"/>
+<rect x="210" y="1132" width="70" height="36" rx="6" fill="#ffffff" stroke="#1f2937" stroke-width="2"/>
+<text x="245" y="1155" font-size="13" fill="#1f2937" text-anchor="middle" font-weight="400">부저</text>
+<path d="M280 1150 L320 1150" fill="none" stroke="#1f2937" stroke-width="2" stroke-linejoin="round"/>
+<path d="M320 1150 L320 1162" fill="none" stroke="#1f2937" stroke-width="2" stroke-linejoin="round"/>
+<line x1="308" y1="1162" x2="332" y2="1162" stroke="#1f2937" stroke-width="2"/>
+<line x1="312" y1="1167" x2="328" y2="1167" stroke="#1f2937" stroke-width="2"/>
+<line x1="316" y1="1172" x2="324" y2="1172" stroke="#1f2937" stroke-width="2"/>
+<text x="320" y="1192" font-size="12" fill="#6b7280" text-anchor="middle" font-weight="400">GND</text>
+<text x="350" y="1155" font-size="12" fill="#6b7280" text-anchor="start" font-weight="400">10cm 이내면 울림</text>
+</svg>
